@@ -1,14 +1,13 @@
 const router = require('express').Router();
-const Joi = require('joi'); // BIBLIOTECA PARA VALIDAR OBJECT JAVASCRIPT
+const Joi = require('joi'); 
 
 const configureBeerService = require('./beer.service');
 
-// SCHEMA DA CERVEJA
 const beerSchema = Joi.object().keys({
     name: Joi.string().required(),
     description: Joi.string().required(),
     tempMax: Joi.number().required(),
-    tempMin: Joi.number().required() // A TEMPERATURA PODE SER NEGATIVA ? VOU ASSUMIR QUE NAO
+    tempMin: Joi.number().required() 
 });
 
 module.exports = (app) => {
