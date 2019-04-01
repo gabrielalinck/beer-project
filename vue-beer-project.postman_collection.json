@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "297db3ba-4acb-4014-8391-bf9d513d616b",
+		"name": "vue-beer-project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Beer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Beer One\",\n\t\"description\": \"New Beer\",\n\t\"tempMax\": 5,\n\t\"tempMin\": 3\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/beers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"beers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Container",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"beerId\": 3510075,\n\t\"truckId\": 325430\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/containers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"containers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Beers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/beers",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"beers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Truck",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"driver\": \"Tom\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/trucks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"trucks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Temperature",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"containerId\": 1,\n\t\"tempNow\": 10\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/sensor",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sensor"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

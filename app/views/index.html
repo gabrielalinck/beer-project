@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<title>Beer Containers</title>
+</head>
+<body>
+	<header>
+		<div class="navbar navbar-dark bg-dark shadow-sm">
+			<div class="container d-flex justify-content-between">
+				<span class="navbar-brand d-flex align-items-center">
+					<strong>Beer Containers - Temperature Control</strong>
+				</span>
+			</div>
+		</div>
+	</header>
+
+	<main>
+
+		<div class="album py-5 bg-light">
+			<div class="container">
+
+				<div class="row">
+					
+				</div>
+			</div>
+		</div>
+
+	</main>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io();
+		var container;
+
+		socket.on('alert', function (msg) {
+			container = {container: msg.containerId, temperature: msg.temperature, severity: 'alert'}
+			$('#'+msg.containerId).text(msg.temperature+'°C')
+			$('#'+msg.containerId).parent().addClass('bg-danger')
+		});
+
+		socket.on('change', function (msg) {
+			container = {container: msg.containerId, temperature: msg.temperature, severity: 'change'}
+			$('#'+msg.containerId).text(msg.temperature+'°C')
+			$('#'+msg.containerId).parent().removeClass('bg-danger')
+		});
+
+		function buildContainers()
+		{
+			var url = 'http://localhost:3000/containers';
+			$.get(url, function(allContainers, status) {
+				allContainers.forEach(function(container, chave){
+				    var html = '<div class="col-2">' +
+									'<div class="card card text-center mb-4 shadow-sm">	'+						
+										'<div class="card-body">'+
+											'<h1 class="card-text" id='+container.id+'>'+container.temp+'°C</h1>'+
+											'<p>Container '+ container.id +'</p>'+
+										'</div>'+
+									'</div>'+
+								'</div>'
+					$('div.row').append(html)
+					isValid(container.beerId, container.temp, container.id)
+				})
+			})
+
+
+		}
+
+		function isValid(beerId, tempNow, cardId) {
+			var urlBeer = 'http://localhost:3000/beers/find/' + beerId;
+			$.get(urlBeer, function(beer, status) {
+				if (!(tempNow >= beer.tempMin && tempNow <= beer.tempMax)) {
+					$('#'+cardId).parent().addClass('bg-danger')
+				}
+			})
+		}
+
+		buildContainers();
+
+	</script>
+
+</body>
+</html>

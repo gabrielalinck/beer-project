@@ -1,0 +1,42 @@
+//first, insert the beers
+
+[{
+    "name": "Beer One",
+    "description": "Ipa",
+    "tempMax": -4,
+    "tempMin": -6
+},
+{
+    "name": "Beer Two",
+    "description": "Lager",
+    "tempMax": 0,
+    "tempMin": -1
+}]
+
+//then, insert the truck
+
+{
+	"driver": "Tom"
+}
+
+// At last, insert the container. For that you will need the truck id and the beer id
+[
+{
+    "id": 1,
+    "beerId": 3683257,
+    "truckId": 7569178,
+    "temp": 5 //this temperature is the current temperature of the container
+},
+{
+    "id": 2,
+    "beerId": 3683257,
+    "truckId": 7569178,
+    "temp": 0
+}
+]
+
+//OK! Now you can change the temperature and see monitore in the screen
+{
+	"containerId": 1,
+	"tempNow": -2
+}
